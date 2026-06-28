@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { Plus, ChevronRight, ChevronLeft, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import { C } from "../theme";
-import { Field, Input, Select, Btn, Card, SectionTitle, Badge, ListBlock, Row } from "./ui";
+import { Field, Input, Select, Btn, Card, SectionTitle, Badge, ListBlock, Row, DateField } from "./ui";
 import { brl, fnum, fmtDateFull, fmtDateShort, today, estaAtrasado, pnum } from "../lib/format";
 import { rotuloPeriodo } from "../lib/ciclos";
 
@@ -122,7 +122,7 @@ function NovaRota({ cds, onAdicionar }) {
     <Card style={{ marginBottom: 16 }}>
       <SectionTitle icon={Plus} title="Lançar rota" />
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 12 }}>
-        <Field label="Data"><Input type="date" value={f.data} onChange={(e) => set("data", e.target.value)} /></Field>
+        <Field label="Data"><DateField value={f.data} onChange={(e) => set("data", e.target.value)} /></Field>
         <Field label="CD (origem)">
           <Select value={f.cdId} onChange={(e) => set("cdId", e.target.value)}>
             {cds.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
@@ -193,7 +193,7 @@ function DetalheRecebivel({ recebivel, cd, rotas, onVoltar, onConfirmar, onReabr
               <CheckCircle2 size={15} color={C.green} /> Confirmar recebimento
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 12 }}>
-              <Field label="Data que recebeu"><Input type="date" value={dataReal} onChange={(e) => setDataReal(e.target.value)} /></Field>
+              <Field label="Data que recebeu"><DateField value={dataReal} onChange={(e) => setDataReal(e.target.value)} /></Field>
               <Field label="Valor recebido"><Input inputMode="decimal" value={valorReal} onChange={(e) => setValorReal(e.target.value)} /></Field>
             </div>
             <Btn kind="success" style={{ width: "100%", justifyContent: "center" }}

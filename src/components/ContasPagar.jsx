@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { Plus, CheckCircle2, Clock, Fuel as FuelIcon } from "lucide-react";
 import { C } from "../theme";
-import { Field, Input, Select, Btn, Card, SectionTitle, Badge, ListBlock, Row } from "./ui";
+import { Field, Input, Select, Btn, Card, SectionTitle, Badge, ListBlock, Row, DateField } from "./ui";
 import { brl, fnum, fmtDateShort, today, estaAtrasado, pnum } from "../lib/format";
 
 const CATEGORIAS = ["Combustível", "Pedágio", "Manutenção", "IPVA", "Financiamento", "Seguro", "Outro"];
@@ -115,7 +115,7 @@ function NovaDespesa({ onAdicionar }) {
             {CATEGORIAS.filter((c) => c !== "Combustível").map((c) => <option key={c} value={c}>{c}</option>)}
           </Select>
         </Field>
-        <Field label="Vencimento"><Input type="date" value={f.dataVencimento} onChange={(e) => set("dataVencimento", e.target.value)} /></Field>
+        <Field label="Vencimento"><DateField value={f.dataVencimento} onChange={(e) => set("dataVencimento", e.target.value)} /></Field>
         <Field label="Valor"><Input inputMode="decimal" placeholder="0,00" value={f.valor} onChange={(e) => set("valor", e.target.value)} /></Field>
         <Field label="Observação"><Input placeholder="opcional" value={f.descricao} onChange={(e) => set("descricao", e.target.value)} style={{ fontFamily: "'Inter',sans-serif" }} /></Field>
       </div>
@@ -145,7 +145,7 @@ function NovoAbastecimento({ kmL, onAdicionar }) {
       <SectionTitle icon={FuelIcon} title="Lançar abastecimento" right={kmL > 0 &&
         <span style={{ fontSize: 12, color: C.sky, fontFamily: "'JetBrains Mono',monospace" }}>{fnum(kmL)} km/l</span>} />
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 12 }}>
-        <Field label="Data"><Input type="date" value={f.data} onChange={(e) => set("data", e.target.value)} /></Field>
+        <Field label="Data"><DateField value={f.data} onChange={(e) => set("data", e.target.value)} /></Field>
         <Field label="KM do painel" hint="Hodômetro total"><Input inputMode="decimal" placeholder="ex: 84210" value={f.odometer} onChange={(e) => set("odometer", e.target.value)} /></Field>
         <Field label="R$ por litro"><Input inputMode="decimal" placeholder="0,000" value={f.price} onChange={(e) => onPrice(e.target.value)} /></Field>
         <Field label="Litros"><Input inputMode="decimal" placeholder="0,00" value={f.liters} onChange={(e) => onLiters(e.target.value)} /></Field>

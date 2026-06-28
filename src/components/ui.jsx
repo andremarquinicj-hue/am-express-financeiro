@@ -29,6 +29,34 @@ export const Select = (p) => (
     ...(p.style || {}) }}>{p.children}</select>
 );
 
+// Componente de data: o <input type="date"> nativo do Android renderiza o texto
+// no formato longo do sistema ("28 de jun. de 2026") com uma largura mínima que
+// CSS não consegue controlar, estourando o layout. Aqui o texto visível é todo
+// nosso (sempre dd/mm/aaaa, sempre do tamanho certo); o input nativo fica invisível
+// e por cima, só para abrir o calendário do sistema ao tocar.
+export const DateField = ({ value, onChange, style }) => {
+  const fmt = (iso) => {
+    if (!iso) return "Selecionar data";
+    const [y, m, d] = iso.split("-");
+    return `${d}/${m}/${y}`;
+  };
+  return (
+    <div style={{ position: "relative", width: "100%", minWidth: 0 }}>
+      <div style={{ ...inputBase, display: "flex", alignItems: "center", justifyContent: "space-between",
+        pointerEvents: "none", whiteSpace: "nowrap", overflow: "hidden", ...(style || {}) }}>
+        <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{fmt(value)}</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2"
+          style={{ flexShrink: 0, marginLeft: 8 }}>
+          <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 10h18" />
+        </svg>
+      </div>
+      <input type="date" value={value} onChange={onChange}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
+          opacity: 0, border: "none", padding: 0, margin: 0, cursor: "pointer" }} />
+    </div>
+  );
+};
+
 export const Btn = ({ children, onClick, kind = "primary", style, disabled }) => {
   const kinds = {
     primary: { background: `linear-gradient(135deg, ${C.sky}, ${C.royalDeep})`, color: "#fff",
