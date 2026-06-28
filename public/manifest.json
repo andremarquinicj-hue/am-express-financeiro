@@ -1,0 +1,15 @@
+{
+  "name": "AM Express — Financeiro",
+  "short_name": "AM Express",
+  "description": "Contas a pagar, contas a receber e fluxo de caixa da transportadora AM Express.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070C1E",
+  "theme_color": "#0D1D56",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
