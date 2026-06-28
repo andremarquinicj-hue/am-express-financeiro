@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Lista de quem pode ler/escrever os dados da AM Express.
+    // André e Catrine ficam aqui, com uma conta (e-mail/senha ou Google) cada.
+    // SEM isso, qualquer pessoa que crie uma conta no app acessaria os dados —
+    // por isso é o passo de segurança mais importante deste arquivo.
+    function ehMembro() {
+      return request.auth != null &&
+        request.auth.uid in [
+          "COLE_AQUI_O_UID_DO_ANDRE",
+          "COLE_AQUI_O_UID_DA_CATRINE"
+        ];
+    }
+
+    match /empresas/am-express/kv/{key} {
+      allow read, write: if ehMembro();
+    }
+  }
+}
